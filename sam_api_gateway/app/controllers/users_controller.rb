@@ -5,9 +5,7 @@ class UsersController < ApplicationController
 
 # No dependen del token
     def create_user
-      value = user_params.to_h
-      value.deep_transform_keys!{ |key| key.to_s.camelize(:lower) }
-      value["userName"] = value.delete("username")
+      value = user_params
       create_user = HTTParty.post(ms_ip("rg")+"/users", body: value.to_json, :headers => { 'Content-Type' => 'application/json' })
       if create_user.code == 200
         render status: 200, json: {body:{message: "Usuario creado"}}.to_json
@@ -30,8 +28,6 @@ class UsersController < ApplicationController
 
     def update_user
       value = user_params.to_h
-      value.deep_transform_keys!{ |key| key.to_s.camelize(:lower) }
-      value["userName"] = value.delete("username")
       update_user = HTTParty.put(ms_ip("rg")+"/users/"+@username, body: value, query:{user:value})
       if update_user.code == 200
         render status: 200, json: {body:{message: "Usuario actualizado"}}.to_json
