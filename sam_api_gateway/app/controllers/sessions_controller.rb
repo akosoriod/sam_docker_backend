@@ -4,7 +4,7 @@ skip_before_action :validate_token, only: [:refresh_token, :login]
 
   def login
     login = HTTParty.post(ms_ip("rg")+"/users/login", body: {
-      userName: params[:username],
+      username: params[:username],
       password: params[:password]
     }.to_json,
       :headers => { 'Content-Type' => 'application/json' })
@@ -40,7 +40,7 @@ skip_before_action :validate_token, only: [:refresh_token, :login]
   end
 
   def remove_tokens
-    esults = HTTParty.delete(ms_ip("ss") + "/revoke/"+@username, headers:{
+    results = HTTParty.delete(ms_ip("ss") + "/revoke/"+@username, headers:{
       "Authorization": request.headers['AUTHORIZATION']
       })
       render status: results.code, json: results.body

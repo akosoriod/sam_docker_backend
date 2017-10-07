@@ -14884,3 +14884,127 @@ Processing by UsersController#create_user as */*
 Completed 422 Unprocessable Entity in 17ms (Views: 0.2ms)
 
 
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 15:22:23 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 500 Internal Server Error in 3047ms
+
+
+  
+ActionController::UnfilteredParameters (unable to convert unpermitted parameters to hash):
+  
+app/controllers/users_controller.rb:8:in `create_user'
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 15:24:57 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 500 Internal Server Error in 97ms
+
+
+  
+ActionController::UnfilteredParameters (unable to convert unpermitted parameters to hash):
+  
+app/controllers/users_controller.rb:8:in `create_user'
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 15:27:27 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 500 Internal Server Error in 90ms
+
+
+  
+ActionController::UnfilteredParameters (unable to convert unpermitted parameters to hash):
+  
+app/controllers/users_controller.rb:8:in `create_user'
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 15:31:42 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 400 Bad Request in 702ms (Views: 0.3ms)
+
+
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 15:32:15 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 400 Bad Request in 158ms (Views: 0.1ms)
+
+
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 15:32:51 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 400 Bad Request in 144ms (Views: 0.1ms)
+
+
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 15:33:18 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 400 Bad Request in 51ms (Views: 0.1ms)
+
+
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 15:37:18 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 201 Created in 499ms (Views: 0.1ms)
+
+
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 15:44:41 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba1", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 422 Unprocessable Entity in 247ms (Views: 0.1ms)
+
+
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 15:44:47 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba21", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba21", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 201 Created in 18ms (Views: 0.1ms)
+
+
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 15:50:47 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba21", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba21", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 422 Unprocessable Entity in 263ms (Views: 0.2ms)
+
+
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 15:50:51 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba211", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba211", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 201 Created in 33ms (Views: 0.1ms)
+
+
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 15:59:42 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba2141", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba2141", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 201 Created in 252ms (Views: 0.1ms)
+
+
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 16:04:18 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba2141", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba2141", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 422 Unprocessable Entity in 269ms (Views: 0.1ms)
+
+
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 16:04:22 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba21141", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre", "last_name"=>"de Prueba", "username"=>"prueba21141", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 201 Created in 50ms (Views: 0.2ms)
+
+
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 17:06:16 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre FELIZ", "last_name"=>"de Prueba", "username"=>"LABESaTIA8ASFa", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre FELIZ", "last_name"=>"de Prueba", "username"=>"LABESaTIA8ASFa", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 500 Internal Server Error in 230ms
+
+
+  
+Errno::ECONNREFUSED (Failed to open TCP connection to 192.168.99.101:3004 (Connection refused - connect(2) for "192.168.99.101" port 3004)):
+  
+app/controllers/users_controller.rb:9:in `create_user'
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 17:07:23 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre FELIZ", "last_name"=>"de Prueba", "username"=>"LABESaTIA8ASFa", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre FELIZ", "last_name"=>"de Prueba", "username"=>"LABESaTIA8ASFa", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 422 Unprocessable Entity in 679ms (Views: 0.1ms)
+
+
+Started POST "/users/create" for 127.0.0.1 at 2017-10-07 17:07:27 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre FELIZ", "last_name"=>"de Prueba", "username"=>"LABESaTIA2asf8ASFa", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre FELIZ", "last_name"=>"de Prueba", "username"=>"LABESaTIA2asf8ASFa", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 201 Created in 46ms (Views: 0.1ms)
+
+
