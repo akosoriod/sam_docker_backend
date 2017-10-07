@@ -1,0 +1,230 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: SendMail Microservice
+  description: Ruby + MySQL Database
+  contact:
+    name: Jesús Alejandro Noguera Ballén
+    email: janoguerab@unal.edu.co
+  license:
+    name: Software Architecture 2017-II
+host: '192.168.99.101:3001'
+basePath: /
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /sent_mails:
+    post:
+      summary: Creates a new mail to Sent
+      operationId: createMail
+      parameters:
+        - name: mail
+          in: body
+          required: true
+          description: Sent Mail Object
+          schema:
+            $ref: '#/definitions/SentMail'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    get:
+      summary: Returns all sent mails
+      operationId: getAllSentMails
+      parameters:
+        - name: firstResult
+          in: query
+          description: The first result to return
+          required: false
+          type: integer
+        - name: maxResult
+          in: query
+          description: The maximum number of results to return
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/SentMailsList'
+        '406':
+          description: Not Acceptable (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  '/sent_mails/{id}':
+    get:
+      summary: Returns a sent mail with the given id
+      operationId: getSentMailById
+      parameters:
+        - name: id
+          in: path
+          description: The id of the sent mail to be returned
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/SentMail'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+          description: Not Acceptable (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    put:
+      summary: Updates a sent mail with the given id
+      operationId: updateMailSent
+      parameters:
+        - name: id
+          in: path
+          description: The id of the sent mail to be updated
+          required: true
+          type: integer
+        - name: mailSent
+          in: body
+          required: true
+          description: Sent Mail Object
+          schema:
+            $ref: '#/definitions/SentMailWithoutId'
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+          description: Not Acceptable (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    delete:
+      summary: Deletes a Sent Mail with the given id
+      operationId: deleteSentMail
+      parameters:
+        - name: id
+          in: path
+          description: The id of the Sent Mail to be deleted
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+          description: Not Acceptable (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+definitions:
+  SentMail:
+    type: object
+    properties:
+      id:
+        type: integer
+      sender:
+        type: string
+      recipient:
+        type: string
+      cc:
+        type: string
+      distribution_list:
+        type: string
+      subject:
+        type: string
+      message_body:
+        type: string
+      attachments:
+        type: string
+      sent_dateTime:
+        type: string
+      created_dateTime:
+        type: string
+      daft:
+        type: boolean
+      urgent:
+        type: boolean
+      confirmation:
+        type: boolean
+  SentMailWithoutId:
+    type: object
+    properties:
+      sender:
+        type: string
+      recipient:
+        type: string
+      cc:
+        type: string
+      distribution_list:
+        type: string
+      subject:
+        type: string
+      message_body:
+        type: string
+      attachments:
+        type: string
+      sent_dateTime:
+        type: string
+      created_dateTime:
+        type: string
+      daft:
+        type: boolean
+      urgent:
+        type: boolean
+      conformation:
+        type: boolean
+  SentMailsList:
+    type: object
+    required:
+      - total
+      - list
+    properties:
+      total:
+        type: number
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/SentMail'
+  ErrorModel:
+    type: object
+    required:
+      - message
+      - code
+    properties:
+      message:
+        type: string
+      code:
+        type: number
+      description:
+        type: object

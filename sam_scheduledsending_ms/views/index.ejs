@@ -1,0 +1,25 @@
+</h3>
+<h3>ScheduledSending</h3>
+<table style="width:65%">
+  <tr>
+    <th style="text-align: center" >user_id</th>
+    <th style="text-align: center" >mail_id</th>
+    <th style="text-align: center" >Year</th>
+    <th style="text-align: center" >Month</th>
+    <th style="text-align: center" > Day </th>
+    <th style="text-align: center" > Hour </th>
+    <th style="text-align: center" >Minutes</th>
+  </tr>
+  <% scheduledsending.forEach(function(scheduledsending){ %>
+    <tr >
+      <td style="text-align: center"> <%= scheduledsending.value.user_id %> </td>
+      <td style="text-align: center"> <%= scheduledsending.value.mail_id %> </td>
+      <td style="text-align: center"> <%= scheduledsending.value.date.year %> </td>
+      <td style="text-align: center"> <%= scheduledsending.value.date.month %> </td>
+      <td style="text-align: center"> <%= scheduledsending.value.date.day %> </td>
+      <td style="text-align: center"> <%= scheduledsending.value.date.hour %> </td>
+      <td style="text-align: center"> <%= scheduledsending.value.date.minutes %> </td>
+  </tr>
+  <% }); %>
+  </table>
+  <script src="pouchdb-6.3.4.min.js"></script>

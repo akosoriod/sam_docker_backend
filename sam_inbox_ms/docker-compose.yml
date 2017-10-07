@@ -1,0 +1,19 @@
+version: '2'
+services:
+  sam_inbox_db:
+    image: postgres
+    ports:
+      - "8808:8808"
+    environment:
+      POSTGRES_ROOT_PASSWORD: 1234
+      POSTGRES_USER: arqsoft
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DATABASE: inbox
+      POSTGRES_HOST: sam_inbox_db
+  sam_inbox_ms:
+    build: .
+    command: bash -c "sleep 40 && rm -f tmp/pids/server.pid && bundle exec rails db:migrate && bundle exec rails s -p 3002 -b '0.0.0.0'"
+    ports: 
+      - "3002:3002"
+    depends_on: 
+      - sam_inbox_db
