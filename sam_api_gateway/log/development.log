@@ -15008,3 +15008,251 @@ Processing by UsersController#create_user as */*
 Completed 201 Created in 46ms (Views: 0.1ms)
 
 
+Started POST "/users/create" for 127.0.0.1 at 2017-10-08 14:07:01 -0500
+Processing by UsersController#create_user as */*
+  Parameters: {"first_name"=>"Nombre FELIZ", "last_name"=>"de Prueba", "username"=>"david", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994", "user"=>{"first_name"=>"Nombre FELIZ", "last_name"=>"de Prueba", "username"=>"david", "password"=>"[FILTERED]", "date_birth"=>"05-12-1994"}}
+Completed 201 Created in 1311ms (Views: 0.3ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:07:22 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 543ms (Views: 0.1ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:11:08 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 19ms (Views: 0.1ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:11:22 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 20ms (Views: 0.1ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:11:34 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 91ms (Views: 0.5ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:11:49 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 20ms (Views: 0.1ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:11:59 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 500 Internal Server Error in 24ms
+
+
+  
+NoMethodError (undefined method `to_h' for #<String:0x00561c5383e558>
+Did you mean?  to_d
+               to_f
+               to_i
+               to_s
+               to_r
+               to_c):
+  
+app/controllers/sessions_controller.rb:19:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:14:29 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 500 Internal Server Error in 21ms
+
+
+  
+TypeError (no implicit conversion of HTTParty::Response into Integer):
+  
+app/controllers/sessions_controller.rb:20:in `[]='
+app/controllers/sessions_controller.rb:20:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:14:55 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 500 Internal Server Error in 21ms
+
+
+  
+IndexError (string not matched):
+  
+app/controllers/sessions_controller.rb:20:in `[]='
+app/controllers/sessions_controller.rb:20:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:17:00 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 20ms (Views: 0.1ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:17:07 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 19ms (Views: 0.2ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:17:19 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 500 Internal Server Error in 20ms
+
+
+  
+IndexError (string not matched):
+  
+app/controllers/sessions_controller.rb:20:in `[]='
+app/controllers/sessions_controller.rb:20:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:17:24 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 500 Internal Server Error in 136ms
+
+
+  
+IndexError (string not matched):
+  
+app/controllers/sessions_controller.rb:20:in `[]='
+app/controllers/sessions_controller.rb:20:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:19:11 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 500 Internal Server Error in 20ms
+
+
+  
+IndexError (string not matched):
+  
+app/controllers/sessions_controller.rb:20:in `[]='
+app/controllers/sessions_controller.rb:20:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:19:18 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 18ms (Views: 0.2ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:19:51 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 114ms (Views: 0.1ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:20:15 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 500 Internal Server Error in 28ms
+
+
+  
+NoMethodError (undefined method `to_hash' for #<String:0x005600ae0611e8>
+Did you mean?  to_s):
+  
+app/controllers/sessions_controller.rb:19:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:22:46 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 500 Internal Server Error in 128ms
+
+
+  
+NoMethodError (undefined method `to_json_to_h' for #<String:0x005600ae328660>
+Did you mean?  to_json):
+  
+app/controllers/sessions_controller.rb:19:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:23:01 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 500 Internal Server Error in 105ms
+
+
+  
+NoMethodError (undefined method `to_h' for #<String:0x0055e0e815fc10>
+Did you mean?  to_d
+               to_f
+               to_i
+               to_s
+               to_r
+               to_c):
+  
+app/controllers/sessions_controller.rb:19:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:27:39 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 500 Internal Server Error in 20ms
+
+
+  
+NoMethodError (undefined method `push' for #<String:0x0055e0e7fea060>):
+  
+app/controllers/sessions_controller.rb:20:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:28:22 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 500 Internal Server Error in 28ms
+
+
+  
+NoMethodError (undefined method `push' for #<String:0x0055e0e7ece2d0>):
+  
+app/controllers/sessions_controller.rb:20:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:28:52 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 18ms (Views: 0.2ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:29:48 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 17ms (Views: 0.1ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:30:37 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 18ms (Views: 0.3ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:30:53 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 17ms (Views: 0.2ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:31:16 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 500 Internal Server Error in 92ms
+
+
+  
+NameError (undefined local variable or method `roken' for #<SessionsController:0x0055e0e8115278>
+Did you mean?  token):
+  
+app/controllers/sessions_controller.rb:20:in `login'
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:31:26 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 22ms (Views: 0.3ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:33:08 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 67ms (Views: 0.6ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:33:12 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 144ms (Views: 0.3ms)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2017-10-08 14:33:28 -0500
+Processing by SessionsController#login as */*
+  Parameters: {"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456", "session"=>{"username"=>"david", "password"=>"[FILTERED]", "device_id"=>"123456"}}
+Completed 200 OK in 20ms (Views: 0.2ms)
+
+
