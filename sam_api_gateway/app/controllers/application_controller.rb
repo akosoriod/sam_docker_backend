@@ -7,12 +7,15 @@ class ApplicationController < ActionController::API
    def validate_token
     begin
       decoded_token = JWT.decode request.headers['AUTHORIZATION'], ::RSAPublic, true, { :algorithm => 'RS256' }
-    rescue Exception
+    rescue JWT::ExpiredSignature
       render status: 401
+      return 1
+    rescue Exception
+      render status: 400
       return 1
     end
     if decoded_token[0]["typ"] != "Authorization"
-      render status: 401
+      render status: 400
     else
       @username = decoded_token[0]["sub"]
     end
