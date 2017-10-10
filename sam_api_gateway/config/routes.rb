@@ -7,11 +7,12 @@ Rails.application.routes.draw do
   delete 'users/close_all', to: 'sessions#remove_tokens'
 
   #Usuario
-  get 'users/index', to: 'users#index_user'
-  get 'users/show/:id', to: 'users#show_user'
-  put 'users/update/:id', to: 'users#update_user'
+  get 'user', to: 'user#current_user' # < Necesitaba esta :)
+  get 'users', to: 'users#index_user'
+  get 'users/:id', to: 'users#show_user'
+  put 'users/:id', to: 'users#update_user'
   post 'users/create', to: 'users#create_user'
-  delete 'users/destroy/:id', to: 'users#destroy_user'
+  delete 'users/:id', to: 'users#destroy_user'
 
 
   #SendMail

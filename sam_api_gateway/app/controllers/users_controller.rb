@@ -16,6 +16,11 @@ class UsersController < ApplicationController
 
 # Dependen del token
 
+    def current_user
+      results = HTTParty.get(ms_ip("rg")+"/users/"+ @username)
+      render json: results.body, status: results.code
+    end
+
     def index_user
       results = HTTParty.get(ms_ip("rg")+"/users")
       render json: results.body, status: results.code
