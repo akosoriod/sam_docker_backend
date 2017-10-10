@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   delete 'users/close_all', to: 'sessions#remove_tokens'
 
   #Usuario
-  get 'user', to: 'user#current_user' # < Necesitaba esta :)
+  get 'user', to: 'users#current_user' # < Necesitaba esta :)
   get 'users', to: 'users#index_user'
   get 'users/:id', to: 'users#show_user'
   put 'users/:id', to: 'users#update_user'
