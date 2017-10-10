@@ -16,13 +16,20 @@ skip_before_action :validate_token, only: [:refresh_token, :login]
       :headers => { 'Content-Type' => 'application/json' })
       if device_reg.code == 201
         token = HTTParty.get(ms_ip("ss")+"/token/"+params[:username])
-        render status: token.code, json: token.body
+        render status: token.code, json: append_token_user(token, login)
       else
         render json: device_reg.body, status: device_reg.code
       end
     else
       render status: 404
     end
+  end
+
+  def append_token_user(token, user)
+    response = JSON.parse(user.body)
+    new_token = JSON.parse(token.body)
+    response["token"] = new_token
+    return response
   end
 
   def refresh_token
