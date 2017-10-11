@@ -7,7 +7,7 @@ class SentMailsController < ApplicationController
     sent_mails.each do |mail|
       mail.message_body = mail.message_body[0..9]
     end
-    render json: sent_mails.to_json(:only => [ :id, :subject,:recipient, :message_body, :attachment,:draft, :urgent ])
+    render json: sent_mails.to_json(:only => [ :id, :subject,:recipient, :message_body, :draft, :urgent, :sent_date  ])
   end
 
   # GET /sent_mails/1
@@ -31,7 +31,7 @@ class SentMailsController < ApplicationController
         draft.attachment=true
       end
     end
-    render json: drafts.to_json(:only => [ :id, :subject,:recipient, :message_body, :attachment,:draft, :urgent])
+    render json: drafts.to_json(:only => [ :id, :subject,:recipient, :message_body, :draft, :urgent, :created_at])
   end
 
 # GET /drafts/1
@@ -47,10 +47,10 @@ class SentMailsController < ApplicationController
   # POST /sent_mails
   def create
     sent_mail = SentMail.new(sent_mail_params)
-    if sent_mail.subject = ""
+    if sent_mail.subject = "" or sent_mail.subject.nil?
       sent_mail.subject = "(sin asunto)"
     end
-    if sent_mail.sent_date = ""
+    if sent_mail.sent_date = "" or sent_mail.sent_date.nil?
       sent_mail.sent_date = DateTime.now
     end
     if sent_mail.save
