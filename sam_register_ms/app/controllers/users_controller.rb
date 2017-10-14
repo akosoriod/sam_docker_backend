@@ -16,7 +16,11 @@ class UsersController < ApplicationController
 
   # GET /user/username
   def show_username
-    render json: @user
+    if @user.blank?
+      render status: 404
+    else
+      render @user
+    end
   end
 
 

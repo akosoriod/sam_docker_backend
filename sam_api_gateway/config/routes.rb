@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   #Usuario
   get 'user', to: 'users#current_user' # < Necesitaba esta :)
+  get 'users/check/:username', to: 'users#check_username'
   get 'users', to: 'users#index_user'
   get 'users/:id', to: 'users#show_user'
   put 'users/:id', to: 'users#update_user'

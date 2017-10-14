@@ -1,19 +1,23 @@
 class UsersController < ApplicationController
 
-  skip_before_action :validate_token, only: [:create_user]
+  skip_before_action :validate_token, only: [:create_user, :check_username]
   before_action :use_token, only: [:update_user, :destroy_user]
 
 # No dependen del token
     def create_user
       value = user_params
       create_user = HTTParty.post(ms_ip("rg")+"/users", body: value.to_json, :headers => { 'Content-Type' => 'application/json' })
-      if create_user.code == 200
-        render status: 200, json: {body:{message: "Usuario creado"}}.to_json
+      if create_user.code == 201
+        render status: 201, json: {body:{message: "Usuario creado"}}.to_json
       else
         render status: create_user.code, json: create_user.body
       end
     end
 
+    def check_username
+      results = HTTParty.get(ms_ip("rg")+"/user/"+ params[:username])
+      render status: results.code
+    end
 # Dependen del token
 
     def current_user
