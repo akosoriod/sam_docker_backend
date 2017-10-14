@@ -27,8 +27,8 @@ Rails.application.routes.draw do
   delete 'draft/:id', to: 'mail#destroy_draft'
 
   #ReceivedMail
-  delete 'ReceivedMails/:id', to: 'mail#delReceivedMail'
+  delete 'inbox/:id', to: 'mail#delReceivedMail'
   get 'inbox', to: 'mail#inbox'
   get 'inbox/:id', to: 'mail#received_mail'
-
+  put 'inbox/:id', to: 'mail#update_read'
 end

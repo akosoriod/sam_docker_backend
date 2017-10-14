@@ -167,7 +167,7 @@ skip_before_action :validate_token, only: :send_drafts
 
   #GET by id
   def received_mail
-    @result = HTTParty.get(ms_ip("in")+"/received_mails/"+params[:id].to_s)
+    @result = HTTParty.get(ms_ip("in")+"/"+@username+"/inbox/"+params[:id].to_s)
     if @result.code == 200
       render status: 200, json: @result.body
     else
@@ -177,11 +177,23 @@ skip_before_action :validate_token, only: :send_drafts
 
   #DELETE
   def delReceivedMail
-    @result = HTTParty.delete(ms_ip("in")+"/received_mails/"+params[:id].to_s)
-    if @result.code == 200
-      render status: 200, json: {body:{message: "Mail deleted"}}.to_json
+    @result = HTTParty.delete(ms_ip("in")+"/"+@username+"/inbox/"+params[:id].to_s)
+    if @result.code == 204
+      render status: 204, json: {body:{message: "Mail deleted"}}.to_json
     else
       render status: 404, json: {body:{message: "Mail couldn't be deleted"}}.to_json
+    end
+  end
+
+  def update_read
+    data={
+      read: params[:read]
+    }
+    @result = HTTParty.put(ms_ip("in")+"/"+@username+"/inbox/"+params[:id].to_s,body:data.to_json,headers: { "Content-Type": 'application/json'})
+    if @result.code == 200
+      render status: 200, json: {body:{message: "Mail updated"}}.to_json
+    else
+      render status: 404, json: {body:{message: "Mail couldn't be updated"}}.to_json
     end
   end
 end

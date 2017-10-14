@@ -9,4 +9,8 @@ Rails.application.routes.draw do
   #get '/inbox/:recipient/not_urgent/', to: 'received_mails#not_urgent'
   get ':username/inbox', to: 'received_mails#index'
   get ':username/inbox/:id', to: 'received_mails#show'
+
+  put ':username/inbox/:id', to: 'received_mails#update'
+
+  delete ':username/inbox/:id', to: 'received_mails#destroy'
 end

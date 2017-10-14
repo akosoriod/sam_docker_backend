@@ -41,13 +41,13 @@ class ReceivedMailsController < ApplicationController
   end
 
   # PATCH/PUT /received_mails/1
-  #def update
-  #  if @received_mail.update(received_mail_params)
-  #    render json: @received_mail
-  #  else
-  #    render json: @received_mail.errors, status: :unprocessable_entity
-  #  end
-  #end
+  def update
+    if @received_mail.update(read_param)
+      render json: @received_mail
+    else
+      render json: @received_mail.errors, status: :unprocessable_entity
+    end
+  end
 
   # DELETE /received_mails/1
   def destroy
@@ -110,5 +110,9 @@ class ReceivedMailsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def received_mail_params
       params.require(:received_mail).permit(:sender, :recipient, :cc, :distribution_list, :subject, :message_body, :attachment, :sent_date, :read, :urgent)
+    end
+
+    def read_param
+      params.require(:received_mail).permit(:read)
     end
 end
