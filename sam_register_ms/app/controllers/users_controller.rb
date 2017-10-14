@@ -20,6 +20,7 @@ class UsersController < ApplicationController
       render status: 404
     else
       render @user
+    end
   end
 
 
