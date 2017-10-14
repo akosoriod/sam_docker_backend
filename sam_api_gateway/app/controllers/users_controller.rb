@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  skip_before_action :validate_token, only: [:create_user]
+  skip_before_action :validate_token, only: [:create_user, :check_username]
   before_action :use_token, only: [:update_user, :destroy_user]
 
 # No dependen del token
@@ -14,6 +14,10 @@ class UsersController < ApplicationController
       end
     end
 
+    def check_username
+      results = HTTParty.get(ms_ip("rg")+"/user/"+ params[:username])
+      render status: results.code
+    end
 # Dependen del token
 
     def current_user
