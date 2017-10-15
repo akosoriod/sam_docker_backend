@@ -175,24 +175,24 @@ func generateRefreshJWT(username string, token_uuid uuid.UUID, refresh_uuid uuid
 }
 
 func handleTokenErrors(w http.ResponseWriter, err error) http.ResponseWriter {
-	switch err.(type){
-	case  *jwt.ValidationError:
+	switch err.(type) {
+	case *jwt.ValidationError:
 		switch err.(*jwt.ValidationError).Errors {
-			case jwt.ValidationErrorExpired:
-				w.WriteHeader(http.StatusUnauthorized)
-				jsonResult, err := json.Marshal(models.ErrorResponse{"Token already expired", "401 Unauthorized"})
-				errorHandler(err)
-				w.Write(jsonResult)
-			case jwt.ValidationErrorSignatureInvalid:
-				w.WriteHeader(http.StatusForbidden)
-				jsonResult, err := json.Marshal(models.ErrorResponse{"Invalid Token", "403 Forbidden"})
-				errorHandler(err)
-				w.Write(jsonResult)
-			default:
-				w.WriteHeader(http.StatusBadRequest)
-				jsonResult, err := json.Marshal(models.ErrorResponse{"Error verifying token", "400 Bad Request"})
-				errorHandler(err)
-				w.Write(jsonResult)
+		case jwt.ValidationErrorExpired:
+			w.WriteHeader(http.StatusUnauthorized)
+			jsonResult, err := json.Marshal(models.ErrorResponse{"Token already expired", "401 Unauthorized"})
+			errorHandler(err)
+			w.Write(jsonResult)
+		case jwt.ValidationErrorSignatureInvalid:
+			w.WriteHeader(http.StatusBadRequest)
+			jsonResult, err := json.Marshal(models.ErrorResponse{"Invalid Token", "400 Forbidden"})
+			errorHandler(err)
+			w.Write(jsonResult)
+		default:
+			w.WriteHeader(http.StatusBadRequest)
+			jsonResult, err := json.Marshal(models.ErrorResponse{"Error verifying token", "400 Bad Request"})
+			errorHandler(err)
+			w.Write(jsonResult)
 		}
 	default:
 		log.Println(err)

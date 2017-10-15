@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"time"
 
 	"arquitectura/sam_sessions_ms/database"
 	"arquitectura/sam_sessions_ms/models"
@@ -28,10 +29,22 @@ func main() {
 
 func initDb() {
 	var err error
-	database.DB, err = gorm.Open("mysql", "arqsoft:123@tcp(192.168.99.102:8814)/sessions?charset=utf8&parseTime=True&loc=Local")
-	//database.DB, err = gorm.Open("mysql", "root:root@tcp(localhost:3306)/sam_session_db?charset=utf8&parseTime=True&loc=Local")
-	if err != nil {
-		log.Println(err)
+	var i = 0
+	for {
+		database.DB, err = gorm.Open("mysql", "arqsoft:123@tcp(sam_sessions_db:3306)/sessions?charset=utf8&parseTime=True&loc=Local")
+		//database.DB, err = gorm.Open("mysql", "root:root@tcp(localhost:3306)/sam_session_db?charset=utf8&parseTime=True&loc=Local")
+		if err != nil {
+			if i >= 3 {
+				log.Fatal("DB CONTECTION ERRROR: ", err)
+			} else {
+				time.Sleep(5000 * time.Millisecond)
+				log.Println("DB CONTECTION ERRROR: retry: ", i, " Error: ", err)
+			}
+		} else {
+			log.Println("conexion exitosa a DB")
+			break
+		}
+		i++
 	}
 	if !database.DB.HasTable(&models.RefreshToken{}) {
 		database.DB.CreateTable(&models.RefreshToken{})

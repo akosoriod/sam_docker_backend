@@ -30,13 +30,16 @@ skip_before_action :validate_token, only: [:refresh_token, :login]
     new_token = JSON.parse(token.body)
     response["token"] = new_token
     return response
-  end
 
   def refresh_token
-    results = HTTParty.get(ms_ip("ss") + "/refresh", headers:{
-      "Authorization": request.headers['AUTHORIZATION']
-      })
-      render status: results.code, json: results.body
+    if request.headers['AUTHORIZATION'].blank?
+        render status: 400
+    else
+      results = HTTParty.get(ms_ip("ss") + "/refresh", headers:{
+        "Authorization": request.headers['AUTHORIZATION']
+        })
+        render status: results.code, json: results.body
+    end
   end
 
   def logout
