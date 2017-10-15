@@ -30,6 +30,7 @@ skip_before_action :validate_token, only: [:refresh_token, :login]
     new_token = JSON.parse(token.body)
     response["token"] = new_token
     return response
+  end
 
   def refresh_token
     if request.headers['AUTHORIZATION'].blank?
