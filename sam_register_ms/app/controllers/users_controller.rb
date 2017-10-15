@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     if @user.blank?
       render status: 404
     else
-      render @user
+      render json: @user
     end
   end
 

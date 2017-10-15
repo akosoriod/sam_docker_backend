@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       value = user_params
       create_user = HTTParty.post(ms_ip("rg")+"/users", body: value.to_json, :headers => { 'Content-Type' => 'application/json' })
       if create_user.code == 201
-        render status: 201, json: {body:{message: "Usuario creado"}}.to_json
+        render status: 201, json: create_user.body
       else
         render status: create_user.code, json: create_user.body
       end
