@@ -18,27 +18,27 @@ class NotificationsController < ApplicationController
     end
   end
 
-  def set_app
-    app = Rpush::Gcm::App.new
-    app.name = "android_app"
-    app.auth_key = "..."
-    app.connections = 1
-    app.save!
-  end
-
-  def create_push(username, sender)
-    if !Rpush::Gcm::App.find_by_name("android_app")
-      set_app
-    end
+  # Metodo para enviar notificaciones push
+  def send_notification(username, sender)
     @devices = UserDevice.get_device_id(username)
     for i in @devices
-      n = Rpush::Gcm::Notification.new
-      n.app = Rpush::Gcm::App.find_by_name("android_app")
-      n.registration_ids = [i.device_id]
-      n.data = { message: "You got a new message from!"+sender}
-      n.save!
-      Rpush.push
-      Rpush.apns_feedback
+      notification = HTTParty.post("https://fcm.googleapis.com/fcm/send",
+      :body => {
+        "to" => i.device_id,
+        "notification" => {
+          "body" => "Nuevo mensaje de "+sender,
+          "title" => "Tienes un nuevo mensaje!"
+        },
+        "data" => {
+          "body" => "Nuevo mensaje de "+sender,
+          "title" => "Tienes un nuevo mensaje!"
+        }
+      }.to_json,
+      :headers => {
+        'Content-Type' => 'application/json',
+        # Key de autorizacion para la app de android - Esto esta en mi cuenta de google <<jsbustosb@unal.edu.co>>
+        'Authorization' => 'Key=AIzaSyCg0mjFzRqBnGDVv1k84_RHKYrxpIqHJVU'
+      } )
     end
   end
 
@@ -52,7 +52,7 @@ class NotificationsController < ApplicationController
     @notification = Notification.new(notification_params)
 
     if @notification.save
-      create_push(@notification.username, @notification.sender)
+      send_notification(@notification.username, @notification.sender)
       render status: :created
       #render json: @notification, status: :created, location: @notification
     else
