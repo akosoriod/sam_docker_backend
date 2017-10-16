@@ -52,3 +52,6 @@ gem 'file_validators'
 
 # Will_Paginate - Paginación
 gem 'will_paginate', '~> 3.1.0'
+
+# Faker
+gem 'faker'

@@ -7,21 +7,21 @@ class SentMail < ApplicationRecord
 
 	def self.sent(params)
 		unless params[:urgent]
-			byUser(params[:sender]).where(draft: false).paginate(page: params[:page], per_page: params[:per_page])
+			byUser(params[:sender]).order('sent_date DESC').where(draft: false).paginate(page: params[:page], per_page: params[:per_page])
 		else
-			byUser(params[:sender]).where(draft: false,urgent: params[:urgent]).paginate(page: params[:page], per_page: params[:per_page])
+			byUser(params[:sender]).order('sent_date DESC').where(draft: false,urgent: params[:urgent]).paginate(page: params[:page], per_page: params[:per_page])
 		end
 	end
 
 	def self.byUser(user)
-		where(sender: user).order('created_at DESC')
+		where(sender: user)
 	end
 
 	def self.drafts(params)
 		unless params[:urgent]
-			byUser(params[:sender]).where(draft: true).paginate(page: params[:page], per_page: params[:per_page])
+			byUser(params[:sender]).order('created_at DESC').where(draft: true).paginate(page: params[:page], per_page: params[:per_page])
 		else
-			byUser(params[:sender]).where(draft: true,urgent: params[:urgent]).paginate(page: params[:page], per_page: params[:per_page])
+			byUser(params[:sender]).order('created_at DESC').where(draft: true,urgent: params[:urgent]).paginate(page: params[:page], per_page: params[:per_page])
 		end
 	end
 

@@ -5,9 +5,10 @@ class SentMailsController < ApplicationController
   def index
     sent_mails=SentMail.sent(params)
     sent_mails.each do |mail|
-      mail.message_body = mail.message_body[0..9]
+      mail.subject = mail.subject
+      mail.message_body = mail.message_body
     end
-    render json: sent_mails.to_json(:only => [ :id, :subject,:recipient, :message_body, :draft, :urgent, :sent_date  ])
+    render json: sent_mails.to_json(:only => [ :id, :subject,:recipient, :message_body, :draft, :urgent, :sent_date, :attachment ])
   end
 
   # GET /sent_mails/1
@@ -24,14 +25,15 @@ class SentMailsController < ApplicationController
   def draft_index
     drafts = SentMail.drafts(params)
     drafts.each do |draft|
-      draft.message_body = draft.message_body[0..9]
+      draft.subject = draft.subject[0..24]+'.'
+      draft.message_body = draft.message_body[0..40]+'...'
       if draft.attachment.file.nil?
         draft.attachment=false
       else
         draft.attachment=true
       end
     end
-    render json: drafts.to_json(:only => [ :id, :subject,:recipient, :message_body, :draft, :urgent, :created_at])
+    render json: drafts.to_json(:only => [ :id, :subject,:recipient, :message_body, :draft, :urgent, :created_at, :attachment])
   end
 
 # GET /drafts/1
@@ -47,10 +49,10 @@ class SentMailsController < ApplicationController
   # POST /sent_mails
   def create
     sent_mail = SentMail.new(sent_mail_params)
-    if sent_mail.subject = "" or sent_mail.subject.nil?
+    if sent_mail.subject == "" or sent_mail.subject.nil?
       sent_mail.subject = "(sin asunto)"
     end
-    if sent_mail.sent_date = "" or sent_mail.sent_date.nil?
+    if sent_mail.sent_date == "" or sent_mail.sent_date.nil?
       sent_mail.sent_date = DateTime.now
     end
     if sent_mail.save
