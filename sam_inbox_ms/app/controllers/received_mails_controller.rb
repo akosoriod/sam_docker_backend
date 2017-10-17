@@ -21,7 +21,7 @@ class ReceivedMailsController < ApplicationController
     @rm.each do |mail|
       mail.message_body = mail.message_body[0..9]
     end
-    render json: @rm.to_json(:only => [ :id, :sender, :subject, :message_body, :sent_date, :read, :urgent])
+    render json: @rm.to_json(:only => [ :id, :sender, :subject, :message_body, :attachment, :created_at, :read, :urgent])
   end
 
   # GET /received_mails/1

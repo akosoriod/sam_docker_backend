@@ -1,9 +1,9 @@
 class MailController < ApplicationController
 
-skip_before_action :validate_token, only: :send_drafts
-
+#skip_before_action :validate_token, only: :send_drafts
 # POST /sent_mails  - sendMail
   def sendMail
+    @username=params[:sender]
     @sentMail = HTTParty.post(ms_ip("sm")+"/sent",ParamsHelper.send_mail_params(params, @username))
     if @sentMail.code == 201
       render status: 201, json: @sentMail.to_json
@@ -40,6 +40,7 @@ skip_before_action :validate_token, only: :send_drafts
 
     # PUT /drafts/1  - send_daft
   def send_draft
+    @username=params[:sender]
     draft={draft:false}.to_json
     @sent_draft = HTTParty.put(ms_ip("sm")+"/senddraft/"+params[:id].to_s,body: draft, query:{sender:@username},
     headers: { "Content-Type": 'application/json'})
@@ -58,6 +59,7 @@ skip_before_action :validate_token, only: :send_drafts
 
   #PUT
   def modify_draft
+    @username=params[:sender]
     data={
       recipient: params[:recipient],
       cc: params[:cc],
@@ -101,6 +103,7 @@ skip_before_action :validate_token, only: :send_drafts
 
     # GET /sent_mails/drafts - drafts
   def draft_index
+    @username=params[:sender]
     drafts=''
     if params[:urgent]
       drafts = HTTParty.get(ms_ip("sm")+"/draft/",query:{sender:@username,urgent:params[:urgent]})
@@ -115,6 +118,7 @@ skip_before_action :validate_token, only: :send_drafts
   end
 
   def draft_show
+    @username=params[:sender]
     draft=HTTParty.get(ms_ip("sm")+"/draft/"+params[:id].to_s,query:{sender:@username})
     if draft.code == 200
       render status: 200, json: draft.body
@@ -125,6 +129,7 @@ skip_before_action :validate_token, only: :send_drafts
 
   # DELETE
   def destroy_sent
+    @username=params[:sender]
     @resp = HTTParty.delete(ms_ip("sm")+"/sent/"+params[:id].to_s,query:{sender:@username})
     if @resp.code == 200
       render status: 200, json: {body:{message: "Sent mail deleted"}}.to_json
@@ -135,6 +140,7 @@ skip_before_action :validate_token, only: :send_drafts
 
     #DELETE
   def destroy_draft
+    @username=params[:sender]
     @resp = HTTParty.delete(ms_ip("sm")+"/draft/"+params[:id].to_s,query:{sender:@username})
     if @resp.code == 200
       render status: 200, json: {body:{message: "Draft deleted"}}.to_json
@@ -144,6 +150,7 @@ skip_before_action :validate_token, only: :send_drafts
   end
 
   def getAllSentMails
+    @username=params[:sender]
     unless params[:urgent]
       return HTTParty.get(ms_ip("sm")+"/sent",query:{sender:@username})
     end
@@ -151,12 +158,14 @@ skip_before_action :validate_token, only: :send_drafts
   end
 
   def checkSentMail(id)
+    @username=params[:sender]
     results = HTTParty.get(ms_ip("sm")+"/sent/"+id.to_s,query:{sender:@username})
     return results
   end
 
   #inbox methods
   def inbox
+    @username=params[:sender]
     params.permit!
     query = params.except(:action, :controller)
     query.permit!
@@ -167,6 +176,7 @@ skip_before_action :validate_token, only: :send_drafts
 
   #GET by id
   def received_mail
+    @username=params[:sender]
     @result = HTTParty.get(ms_ip("in")+"/"+@username+"/inbox/"+params[:id].to_s)
     if @result.code == 200
       render status: 200, json: @result.body
@@ -177,6 +187,7 @@ skip_before_action :validate_token, only: :send_drafts
 
   #DELETE
   def delReceivedMail
+    @username=params[:sender]
     @result = HTTParty.delete(ms_ip("in")+"/"+@username+"/inbox/"+params[:id].to_s)
     if @result.code == 204
       render status: 204, json: {body:{message: "Mail deleted"}}.to_json
@@ -186,6 +197,7 @@ skip_before_action :validate_token, only: :send_drafts
   end
 
   def update_read
+    @username=params[:sender]
     data={
       read: params[:read]
     }
