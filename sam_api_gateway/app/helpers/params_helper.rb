@@ -30,7 +30,7 @@ module ParamsHelper
         :message_body => params[:message_body],
         :attachment => params[:attachment],
         :cc => params[:cc],
-        :sent_date => params[:sent_dateTime],
+        :sent_date => params[:sent_date],
         :draft => params[:draft],
         :urgent => params[:urgent],
         :confirmation => params[:confirmation]
