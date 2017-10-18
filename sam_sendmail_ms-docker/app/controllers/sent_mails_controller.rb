@@ -86,7 +86,7 @@ end
       urgent: params[:urgent],
       draft: params[:draft],
       confirmation: params[:confirmation])
-      if @update_mail.subject.nil?
+      if @update_mail.subject.nil? or @update_mail.subject==""
         @update_mail.update_attributes(subject:"(sin asunto)")
       end
       if @update_mail.sent_date.nil?

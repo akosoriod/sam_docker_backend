@@ -15,10 +15,10 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: arqsoft
   password: 123
-  host: localhost
-  #host: sam_sendmail_db
-  #port: 3306
-  #socket: /tmp/mysql.sock
+  #host: localhost
+  host: sam_sendmail_db
+  port: 3306
+  socket: /tmp/mysql.sock
 
 development:
   <<: *default

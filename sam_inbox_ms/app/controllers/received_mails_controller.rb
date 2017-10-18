@@ -9,7 +9,7 @@ class ReceivedMailsController < ApplicationController
   # GET /received_mails
   def index
     #puts "USUARIO: #{params[:username]}"
-    @rm = ReceivedMail.all
+    @rm = ReceivedMail.where(recipient: params[:username])
     @rm = @rm.by_sender(params[:sender]) if params.has_key?(:sender)
     @rm = @rm.by_read(params[:read]) if params.has_key?(:read)
     @rm = @rm.by_urgent(params[:urgent]) if params.has_key?(:urgent)
