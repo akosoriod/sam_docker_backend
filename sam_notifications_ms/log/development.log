@@ -1495,3 +1495,216 @@ Processing by UserDevicesController#index as */*
 Completed 200 OK in 8ms (Views: 5.9ms | ActiveRecord: 2.7ms)
 
 
+  [1m[35m (232.6ms)[0m  [1m[35mDROP DATABASE IF EXISTS "notifications_db"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "notifications_db"[0m
+  [1m[35m (149.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (99.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2808627241692089685)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddRpush (20170921050234)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (97.0ms)[0m  [1m[35mCREATE TABLE "rapns_notifications" ("id" bigserial primary key, "badge" integer, "device_token" character varying(64) NOT NULL, "sound" character varying DEFAULT '1.aiff', "alert" character varying, "attributes_for_device" text, "expiry" integer DEFAULT 86400 NOT NULL, "delivered" boolean DEFAULT 'f' NOT NULL, "delivered_at" timestamp, "failed" boolean DEFAULT 'f' NOT NULL, "failed_at" timestamp, "error_code" integer, "error_description" character varying, "deliver_after" timestamp, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (58.1ms)[0m  [1m[35mCREATE  INDEX  "index_rapns_notifications_multi" ON "rapns_notifications"  ("delivered", "failed", "deliver_after")[0m
+  [1m[35m (32.4ms)[0m  [1m[35mCREATE TABLE "rapns_feedback" ("id" bigserial primary key, "device_token" character varying(64) NOT NULL, "failed_at" timestamp NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (32.1ms)[0m  [1m[35mCREATE  INDEX  "index_rapns_feedback_on_device_token" ON "rapns_feedback"  ("device_token")[0m
+  [1m[35m (102.1ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ADD "alert_is_json" boolean DEFAULT 'f'[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ADD "app" character varying[0m
+  [1m[35m (31.0ms)[0m  [1m[35mALTER TABLE "rapns_feedback" ADD "app" character varying[0m
+  [1m[35m (51.9ms)[0m  [1m[35mCREATE TABLE "rapns_apps" ("id" bigserial primary key, "key" character varying NOT NULL, "environment" character varying NOT NULL, "certificate" text NOT NULL, "password" character varying, "connections" integer DEFAULT 1 NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ADD "type" character varying[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "rapns_apps" ADD "type" character varying[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[33mUPDATE "rapns_notifications" SET "type" = 'Rapns::Apns::Notification'[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[33mUPDATE "rapns_apps" SET "type" = 'Rapns::Apns::App'[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ALTER COLUMN "type" TYPE character varying[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ALTER "type" SET NOT NULL[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "rapns_apps" ALTER COLUMN "type" TYPE character varying[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "rapns_apps" ALTER "type" SET NOT NULL[0m
+  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ALTER COLUMN "device_token" TYPE character varying(64)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ALTER "device_token" DROP NOT NULL[0m
+  [1m[35m (1.8ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ALTER COLUMN "expiry" TYPE integer[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ALTER COLUMN "expiry" SET DEFAULT 86400[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ALTER "expiry" DROP NOT NULL[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "rapns_apps" ALTER COLUMN "environment" TYPE character varying[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "rapns_apps" ALTER "environment" DROP NOT NULL[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "rapns_apps" ALTER COLUMN "certificate" TYPE text[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "rapns_apps" ALTER COLUMN "certificate" DROP DEFAULT[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "rapns_apps" ALTER "certificate" DROP NOT NULL[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ALTER COLUMN "error_description" TYPE text[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ALTER COLUMN "error_description" DROP DEFAULT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ALTER "error_description" DROP NOT NULL[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ALTER COLUMN "sound" TYPE character varying[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ALTER COLUMN "sound" SET DEFAULT 'default'[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "rapns_notifications" RENAME COLUMN "attributes_for_device" TO "data"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "rapns_apps" RENAME COLUMN "key" TO "name"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "rapns_apps" ADD "auth_key" character varying[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ADD "collapse_key" character varying[0m
+  [1m[35m (167.9ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ADD "delay_while_idle" boolean DEFAULT 'f' NOT NULL[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ADD "registration_ids" text[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ADD "app_id" integer[0m
+  [1m[35m (107.8ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ADD "retries" integer DEFAULT 0[0m
+  [1m[36mAddRpush::AddGcm::Rapns::App Load (0.9ms)[0m  [1m[34mSELECT "rapns_apps".* FROM "rapns_apps"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ALTER COLUMN "app_id" TYPE integer[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ALTER "app_id" SET NOT NULL[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "rapns_notifications" DROP "app"[0m
+DEPRECATION WARNING: Passing default to #index_name_exists? is deprecated without replacement. (called from up at /home/alejo/sam_back/sam_notifications_ms/db/migrate/20170921050234_add_rpush.rb:184)
+  [1m[35m (0.7ms)[0m  [1m[35mDROP INDEX  "index_rapns_notifications_multi"[0m
+  [1m[35m (50.2ms)[0m  [1m[35mCREATE  INDEX  "index_rapns_notifications_multi" ON "rapns_notifications"  ("app_id", "delivered", "failed", "deliver_after")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "rapns_notifications" ADD "uri" character varying[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "rapns_apps" ADD "client_id" character varying[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "rapns_apps" ADD "client_secret" character varying[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "rapns_apps" ADD "access_token" character varying[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "rapns_apps" ADD "access_token_expiration" timestamp[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "rapns_notifications" RENAME TO "rpush_notifications"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "public"."rapns_notifications_id_seq" RENAME TO "rpush_notifications_id_seq"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER INDEX "rapns_notifications_pkey" RENAME TO "rpush_notifications_pkey"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "rapns_apps" RENAME TO "rpush_apps"[0m
+  [1m[35m (2.0ms)[0m  [1m[35mALTER TABLE "public"."rapns_apps_id_seq" RENAME TO "rpush_apps_id_seq"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER INDEX "rapns_apps_pkey" RENAME TO "rpush_apps_pkey"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "rapns_feedback" RENAME TO "rpush_feedback"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "public"."rapns_feedback_id_seq" RENAME TO "rpush_feedback_id_seq"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER INDEX "rapns_feedback_pkey" RENAME TO "rpush_feedback_pkey"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER INDEX "index_rapns_feedback_on_device_token" RENAME TO "index_rpush_feedback_on_device_token"[0m
+DEPRECATION WARNING: Passing default to #index_name_exists? is deprecated without replacement. (called from up at /home/alejo/sam_back/sam_notifications_ms/db/migrate/20170921050234_add_rpush.rb:296)
+  [1m[35m (0.3ms)[0m  [1m[35mALTER INDEX "index_rapns_notifications_multi" RENAME TO "index_rpush_notifications_multi"[0m
+DEPRECATION WARNING: Passing default to #index_name_exists? is deprecated without replacement. (called from up at /home/alejo/sam_back/sam_notifications_ms/db/migrate/20170921050234_add_rpush.rb:300)
+  [1m[35mSQL (0.5ms)[0m  [1m[33mUPDATE "rpush_notifications" SET "type" = 'Rpush::Apns::Notification' WHERE "rpush_notifications"."type" = $1[0m  [["type", "Rapns::Apns::Notification"]]
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "rpush_notifications" SET "type" = 'Rpush::Gcm::Notification' WHERE "rpush_notifications"."type" = $1[0m  [["type", "Rapns::Gcm::Notification"]]
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "rpush_notifications" SET "type" = 'Rpush::Adm::Notification' WHERE "rpush_notifications"."type" = $1[0m  [["type", "Rapns::Adm::Notification"]]
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "rpush_notifications" SET "type" = 'Rpush::Wpns::Notification' WHERE "rpush_notifications"."type" = $1[0m  [["type", "Rapns::Wpns::Notification"]]
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "rpush_apps" SET "type" = 'Rpush::Apns::App' WHERE "rpush_apps"."type" = $1[0m  [["type", "Rapns::Apns::App"]]
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "rpush_apps" SET "type" = 'Rpush::Gcm::App' WHERE "rpush_apps"."type" = $1[0m  [["type", "Rapns::Gcm::App"]]
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "rpush_apps" SET "type" = 'Rpush::Adm::App' WHERE "rpush_apps"."type" = $1[0m  [["type", "Rapns::Adm::App"]]
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "rpush_apps" SET "type" = 'Rpush::Wpns::App' WHERE "rpush_apps"."type" = $1[0m  [["type", "Rapns::Wpns::App"]]
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "rpush_notifications" ADD "fail_after" timestamp[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170921050234"]]
+  [1m[35m (11.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to Rpush200Updates (20170921050235)
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (110.0ms)[0m  [1m[35mALTER TABLE "rpush_notifications" ADD "processing" boolean DEFAULT 'f' NOT NULL[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "rpush_notifications" ADD "priority" integer[0m
+DEPRECATION WARNING: Passing default to #index_name_exists? is deprecated without replacement. (called from up at /home/alejo/sam_back/sam_notifications_ms/db/migrate/20170921050235_rpush_2_0_0_updates.rb:20)
+  [1m[35m (0.8ms)[0m  [1m[35mDROP INDEX  "index_rpush_notifications_multi"[0m
+  [1m[35m (43.4ms)[0m  [1m[35mCREATE  INDEX  "index_rpush_notifications_multi" ON "rpush_notifications"  ("delivered", "failed") WHERE NOT delivered AND NOT failed[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "rpush_feedback" RENAME COLUMN "app" TO "app_id"[0m
+  [1m[35m (93.3ms)[0m  [1m[35mALTER TABLE rpush_feedback ALTER COLUMN app_id TYPE integer USING (trim(app_id)::integer)[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[33mUPDATE "rpush_apps" SET "type" = 'Rpush::Client::ActiveRecord::Apns::App' WHERE "rpush_apps"."type" = $1[0m  [["type", "Rpush::Apns::App"]]
+  [1m[35mSQL (1.0ms)[0m  [1m[33mUPDATE "rpush_notifications" SET "type" = 'Rpush::Client::ActiveRecord::Apns::Notification' WHERE "rpush_notifications"."type" = $1[0m  [["type", "Rpush::Apns::Notification"]]
+  [1m[35mSQL (0.5ms)[0m  [1m[33mUPDATE "rpush_apps" SET "type" = 'Rpush::Client::ActiveRecord::Gcm::App' WHERE "rpush_apps"."type" = $1[0m  [["type", "Rpush::Gcm::App"]]
+  [1m[35mSQL (0.5ms)[0m  [1m[33mUPDATE "rpush_notifications" SET "type" = 'Rpush::Client::ActiveRecord::Gcm::Notification' WHERE "rpush_notifications"."type" = $1[0m  [["type", "Rpush::Gcm::Notification"]]
+  [1m[35mSQL (0.5ms)[0m  [1m[33mUPDATE "rpush_apps" SET "type" = 'Rpush::Client::ActiveRecord::Wpns::App' WHERE "rpush_apps"."type" = $1[0m  [["type", "Rpush::Wpns::App"]]
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "rpush_notifications" SET "type" = 'Rpush::Client::ActiveRecord::Wpns::Notification' WHERE "rpush_notifications"."type" = $1[0m  [["type", "Rpush::Wpns::Notification"]]
+  [1m[35mSQL (0.6ms)[0m  [1m[33mUPDATE "rpush_apps" SET "type" = 'Rpush::Client::ActiveRecord::Adm::App' WHERE "rpush_apps"."type" = $1[0m  [["type", "Rpush::Adm::App"]]
+  [1m[35mSQL (0.5ms)[0m  [1m[33mUPDATE "rpush_notifications" SET "type" = 'Rpush::Client::ActiveRecord::Adm::Notification' WHERE "rpush_notifications"."type" = $1[0m  [["type", "Rpush::Adm::Notification"]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170921050235"]]
+  [1m[35m (18.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to Rpush210Updates (20170921050236)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "rpush_notifications" ADD "url_args" text[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "rpush_notifications" ADD "category" character varying[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170921050236"]]
+  [1m[35m (18.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to Rpush260Updates (20170921050237)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (108.8ms)[0m  [1m[35mALTER TABLE "rpush_notifications" ADD "content_available" boolean DEFAULT 'f'[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170921050237"]]
+  [1m[35m (22.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to Rpush270Updates (20170921050238)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "rpush_notifications" ALTER COLUMN "alert" TYPE text[0m
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "rpush_notifications" ADD "notification" text[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170921050238"]]
+  [1m[35m (10.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to Rpush300Updates (20170921050239)
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (118.0ms)[0m  [1m[35mALTER TABLE "rpush_notifications" ADD "mutable_content" boolean DEFAULT 'f'[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "rpush_notifications" ALTER COLUMN "sound" TYPE character varying[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "rpush_notifications" ALTER COLUMN "sound" DROP DEFAULT[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170921050239"]]
+  [1m[35m (21.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUserDevices (20170921062910)
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (72.7ms)[0m  [1m[35mCREATE TABLE "user_devices" ("id" bigserial primary key, "username" character varying, "device_id" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170921062910"]]
+  [1m[35m (19.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateNotifications (20170921072442)
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (86.0ms)[0m  [1m[35mCREATE TABLE "notifications" ("id" bigserial primary key, "username" character varying, "sender" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170921072442"]]
+  [1m[35m (17.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.0ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-10-16 16:55:43.144792"], ["updated_at", "2017-10-16 16:55:43.144792"]]
+  [1m[35m (13.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT pg_advisory_unlock(2808627241692089685)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/notifications" for 127.0.0.1 at 2017-10-16 11:56:59 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by NotificationsController#create as HTML
+  Parameters: {"username"=>"janoguerab", "sender"=>"janoguerab", "notification"=>{"username"=>"janoguerab", "sender"=>"janoguerab"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "notifications" ("username", "sender", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "janoguerab"], ["sender", "janoguerab"], ["created_at", "2017-10-16 16:57:00.302753"], ["updated_at", "2017-10-16 16:57:00.302753"]]
+  [1m[35m (16.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRpush::Client::ActiveRecord::Gcm::App Load (0.8ms)[0m  [1m[34mSELECT  "rpush_apps".* FROM "rpush_apps" WHERE "rpush_apps"."type" IN ('Rpush::Client::ActiveRecord::Gcm::App') AND "rpush_apps"."name" = $1 LIMIT $2[0m  [["name", "android_app"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRpush::Client::ActiveRecord::App Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "rpush_apps" WHERE "rpush_apps"."name" = $1 AND "rpush_apps"."type" = $2 AND "rpush_apps"."environment" IS NULL LIMIT $3[0m  [["name", "android_app"], ["type", "Rpush::Client::ActiveRecord::Gcm::App"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "rpush_apps" ("name", "created_at", "updated_at", "type", "auth_key") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "android_app"], ["created_at", "2017-10-16 16:57:00.367906"], ["updated_at", "2017-10-16 16:57:00.367906"], ["type", "Rpush::Client::ActiveRecord::Gcm::App"], ["auth_key", "..."]]
+  [1m[35m (17.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUserDevice Load (0.3ms)[0m  [1m[34mSELECT "user_devices"."device_id" FROM "user_devices" WHERE "user_devices"."username" = $1[0m  [["username", "janoguerab"]]
+Completed 201 Created in 94ms (Views: 0.1ms | ActiveRecord: 47.2ms)
+
+
+Started POST "/notifications" for 127.0.0.1 at 2017-10-16 12:26:19 -0500
+Processing by NotificationsController#create as HTML
+  Parameters: {"username"=>"janoguerab", "sender"=>"janoguerab", "notification"=>{"username"=>"janoguerab", "sender"=>"janoguerab"}}
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "notifications" ("username", "sender", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "janoguerab"], ["sender", "janoguerab"], ["created_at", "2017-10-16 17:26:19.698334"], ["updated_at", "2017-10-16 17:26:19.698334"]]
+  [1m[35m (14.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRpush::Client::ActiveRecord::Gcm::App Load (0.9ms)[0m  [1m[34mSELECT  "rpush_apps".* FROM "rpush_apps" WHERE "rpush_apps"."type" IN ('Rpush::Client::ActiveRecord::Gcm::App') AND "rpush_apps"."name" = $1 LIMIT $2[0m  [["name", "android_app"], ["LIMIT", 1]]
+  [1m[36mUserDevice Load (1.1ms)[0m  [1m[34mSELECT "user_devices"."device_id" FROM "user_devices" WHERE "user_devices"."username" = $1[0m  [["username", "janoguerab"]]
+Completed 201 Created in 171ms (Views: 0.2ms | ActiveRecord: 18.9ms)
+
+
+Started POST "/notifications" for 127.0.0.1 at 2017-10-16 12:28:36 -0500
+Processing by NotificationsController#create as HTML
+  Parameters: {"username"=>"janoguerab", "sender"=>"janoguerab", "notification"=>{"username"=>"janoguerab", "sender"=>"janoguerab"}}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "notifications" ("username", "sender", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "janoguerab"], ["sender", "janoguerab"], ["created_at", "2017-10-16 17:28:36.676337"], ["updated_at", "2017-10-16 17:28:36.676337"]]
+  [1m[35m (5.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRpush::Client::ActiveRecord::Gcm::App Load (0.7ms)[0m  [1m[34mSELECT  "rpush_apps".* FROM "rpush_apps" WHERE "rpush_apps"."type" IN ('Rpush::Client::ActiveRecord::Gcm::App') AND "rpush_apps"."name" = $1 LIMIT $2[0m  [["name", "android_app"], ["LIMIT", 1]]
+  [1m[36mUserDevice Load (0.6ms)[0m  [1m[34mSELECT "user_devices"."device_id" FROM "user_devices" WHERE "user_devices"."username" = $1[0m  [["username", "janoguerab"]]
+Completed 201 Created in 17ms (Views: 0.2ms | ActiveRecord: 8.0ms)
+
+
+Started POST "/notifications" for 127.0.0.1 at 2017-10-16 12:32:01 -0500
+Processing by NotificationsController#create as HTML
+  Parameters: {"username"=>"janoguerab", "sender"=>"janoguerab", "notification"=>{"username"=>"janoguerab", "sender"=>"janoguerab"}}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "notifications" ("username", "sender", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "janoguerab"], ["sender", "janoguerab"], ["created_at", "2017-10-16 17:32:01.157739"], ["updated_at", "2017-10-16 17:32:01.157739"]]
+  [1m[35m (11.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRpush::Client::ActiveRecord::Gcm::App Load (0.8ms)[0m  [1m[34mSELECT  "rpush_apps".* FROM "rpush_apps" WHERE "rpush_apps"."type" IN ('Rpush::Client::ActiveRecord::Gcm::App') AND "rpush_apps"."name" = $1 LIMIT $2[0m  [["name", "android_app"], ["LIMIT", 1]]
+  [1m[36mUserDevice Load (0.8ms)[0m  [1m[34mSELECT "user_devices"."device_id" FROM "user_devices" WHERE "user_devices"."username" = $1[0m  [["username", "janoguerab"]]
+Completed 201 Created in 21ms (Views: 0.2ms | ActiveRecord: 14.1ms)
+
+
+Started POST "/notifications" for 127.0.0.1 at 2017-10-16 12:33:00 -0500
+Processing by NotificationsController#create as HTML
+  Parameters: {"username"=>"janoguerab", "sender"=>"janoguerab", "notification"=>{"username"=>"janoguerab", "sender"=>"janoguerab"}}
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "notifications" ("username", "sender", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "janoguerab"], ["sender", "janoguerab"], ["created_at", "2017-10-16 17:33:00.470046"], ["updated_at", "2017-10-16 17:33:00.470046"]]
+  [1m[35m (11.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRpush::Client::ActiveRecord::Gcm::App Load (0.9ms)[0m  [1m[34mSELECT  "rpush_apps".* FROM "rpush_apps" WHERE "rpush_apps"."type" IN ('Rpush::Client::ActiveRecord::Gcm::App') AND "rpush_apps"."name" = $1 LIMIT $2[0m  [["name", "android_app"], ["LIMIT", 1]]
+  [1m[36mUserDevice Load (0.8ms)[0m  [1m[34mSELECT "user_devices"."device_id" FROM "user_devices" WHERE "user_devices"."username" = $1[0m  [["username", "janoguerab"]]
+Completed 201 Created in 25ms (Views: 0.2ms | ActiveRecord: 14.7ms)
+
+
+Started POST "/notifications" for 127.0.0.1 at 2017-10-16 13:19:09 -0500
+Processing by NotificationsController#create as HTML
+  Parameters: {"username"=>"janoguerab", "sender"=>"janoguerab", "notification"=>{"username"=>"janoguerab", "sender"=>"janoguerab"}}
+  [1m[35m (414.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (21.4ms)[0m  [1m[32mINSERT INTO "notifications" ("username", "sender", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "janoguerab"], ["sender", "janoguerab"], ["created_at", "2017-10-16 18:19:20.418998"], ["updated_at", "2017-10-16 18:19:20.418998"]]
+  [1m[35m (61.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRpush::Client::ActiveRecord::Gcm::App Load (10.5ms)[0m  [1m[34mSELECT  "rpush_apps".* FROM "rpush_apps" WHERE "rpush_apps"."type" IN ('Rpush::Client::ActiveRecord::Gcm::App') AND "rpush_apps"."name" = $1 LIMIT $2[0m  [["name", "android_app"], ["LIMIT", 1]]
+  [1m[36mUserDevice Load (1.4ms)[0m  [1m[34mSELECT "user_devices"."device_id" FROM "user_devices" WHERE "user_devices"."username" = $1[0m  [["username", "janoguerab"]]
+Completed 201 Created in 7906ms (Views: 89.1ms | ActiveRecord: 509.4ms)
+
+

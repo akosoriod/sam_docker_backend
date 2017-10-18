@@ -140,7 +140,7 @@ DEPENDENCIES
   carrierwave-base64
   execjs
   listen (>= 3.0.5, < 3.2)
-  pg (~> 0.18)
+  pg
   puma (~> 3.7)
   rails (~> 5.1.4)
   spring

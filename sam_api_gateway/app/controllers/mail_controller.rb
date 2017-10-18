@@ -1,7 +1,6 @@
 class MailController < ApplicationController
 
 skip_before_action :validate_token, only: :send_drafts
-
 # POST /sent_mails  - sendMail
   def sendMail
     @sentMail = HTTParty.post(ms_ip("sm")+"/sent",ParamsHelper.send_mail_params(params, @username))
