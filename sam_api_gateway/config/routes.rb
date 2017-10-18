@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   get 'draft', to: 'mail#draft_index'
   get 'draft/:id', to: 'mail#draft_show'
   post 'send', to: 'mail#sendMail'
-  put 'senddrafts', to: 'mail#send_draft'
+  get 'senddrafts/:id', to: 'mail#send_drafts'
   put 'draft/:id', to: 'mail#modify_draft'
   delete 'sent/:id', to: 'mail#destroy_sent'
   delete 'draft/:id', to: 'mail#destroy_draft'

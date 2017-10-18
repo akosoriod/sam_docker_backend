@@ -70,12 +70,19 @@ app.get('/scheduledsending/all', function (req, res){
 app.post('/scheduledsending/add', function (req, res){
     const user_id = req.body.user_id;
     const mail_id = req.body.mail_id;
-    const date = objDate(req.body.date);
+    const fecha = new Date(req.body.date);
+    const year = fecha.getFullYear();
+    const month = fecha.getMonth()+1;
+    const day = fecha.getDate();
+    const hour = fecha.getHours();
+    const minutes = fecha.getMinutes();
+
+  /*  const date = objDate(req.body.date);
     const year = date.year;
     const month = date.month;
     const day = date.day;
     const hour = date.hour;
-    const minutes = date.minutes;
+    const minutes = date.minutes;*/
     couch.uniqid().then(function(ids){
       const id = ids[0];
       couch.insert('scheduledsending',{
@@ -91,6 +98,22 @@ app.post('/scheduledsending/add', function (req, res){
         }
       }).then(
         function(data, headers, status){
+
+            console.log("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+            console.log("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+            console.log("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+            console.log("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+            console.log("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+            console.log(        (req.body.date));
+            console.log(        (fecha));
+            console.log(        (year));
+            console.log(        (month));
+            console.log(        (day));
+            console.log(        (hour));
+            console.log(        (minutes));
+
+            console.log("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+          console.log("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
           res.send('Created successfully');
           res.redirect('/')
         },

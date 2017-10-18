@@ -4,6 +4,7 @@ skip_before_action :validate_token, only: :send_drafts
 # POST /sent_mails  - sendMail
   def sendMail
     @sentMail = HTTParty.post(ms_ip("sm")+"/sent",ParamsHelper.send_mail_params(params, @username))
+    puts "CODIGO: #{@sentMail.code}"
     if @sentMail.code == 201
       render status: 201, json: @sentMail.to_json
       #TO_DO Si el mensaje se envía (NO ES BORRADOR) se guarda en la base de inbox de usuario que recibe
@@ -16,9 +17,13 @@ skip_before_action :validate_token, only: :send_drafts
           'Content-Type': 'application/json'
           }})
       end
-      # TO_DO Si el mensaje se le pone una fecha de envío se programa su envío
+      # TO_DO Si el mensaje se le pone una fecha de envío se programa su envio
       # Si no se pone fecha de envío se envía de una vez y no es borrador
-      if params[:sent_date] != DateTime.now and params[:sent_date] != ""
+      puts("Antes que imprima sent_Date no? de la loralora")
+      puts(params[:sent_date])
+      if params[:sent_date] != ""
+        puts("la concha de la loralora")
+
         idMensaje = JSON.parse(@sentMail.body)["id"]
         @scheduledMail = HTTParty.post(ms_ip("schs")+"/scheduledsending/add", {
           body: {
@@ -38,7 +43,8 @@ skip_before_action :validate_token, only: :send_drafts
   end
 
     # PUT /drafts/1  - send_daft
-  def send_draft
+=begin
+ def send_draft
     draft={draft:false}.to_json
     @sent_draft = HTTParty.put(ms_ip("sm")+"/senddraft/"+params[:id].to_s,body: draft, query:{sender:@username},
     headers: { "Content-Type": 'application/json'})
@@ -54,7 +60,34 @@ skip_before_action :validate_token, only: :send_drafts
       render status: 404, json: {body:{message: "Draft wasn't modify"}}.to_json
     end
   end
-
+=end
+  def send_drafts
+     @sent_draft = HTTParty.put(ms_ip("sm")+"/sentdraft/"+params[:id].to_s)
+     if @sent_draft.code == 200
+       mail_draft=JSON.parse(@sent_draft.body)
+       mail2 = {
+           body: {
+           :sender => mail_draft['sender'],
+           :recipient => mail_draft['recipient'],
+           :cc => mail_draft['cc'],
+           :distribution_list => mail_draft['distribution_list'],
+           :subject => mail_draft['subject'],
+           :message_body => mail_draft['message_body'],
+           :attachments => mail_draft['attachment'],
+           :sent_dateTime => mail_draft['sent_date'],
+           :urgent => mail_draft['urgent'],
+           :read => false
+           }.to_json,
+           :headers => {
+           'Content-Type' => 'application/json'
+           }
+           }
+       receivedMail = HTTParty.post(ms_ip("in")+"/received_mails", mail2)
+       render status: 200, json: @sent_draft.body
+     else
+       render status: 404, json: {body:{message: "Draft wasn't modify"}}.to_json
+     end
+   end
   #PUT
   def modify_draft
     data={

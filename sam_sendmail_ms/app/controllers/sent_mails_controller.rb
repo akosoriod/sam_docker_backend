@@ -50,10 +50,7 @@ class SentMailsController < ApplicationController
   def create
     sent_mail = SentMail.new(sent_mail_params)
     if sent_mail.subject == "" or sent_mail.subject.nil?
-      sent_mail.subject = "(sin asunto)"
-    end
-    if sent_mail.sent_date == "" or sent_mail.sent_date.nil?
-      sent_mail.sent_date = DateTime.now
+      sent_mail.subject.update_attributes(subject:"(sin asunto)")
     end
     if sent_mail.save
       render json: sent_mail, status: :created
@@ -74,24 +71,9 @@ end
 
   # PATCH/PUT /drafts/1
   def modify_draft
-    @update_mail=SentMail.draftsId(params)
+    @update_mail=SentMail.find(params[:id])
     if @update_mail.update_attributes(
-      recipient: params[:recipient],
-      cc: params[:cc],
-      distribution_list: params[:distribution_list],
-      subject: params[:subject],
-      message_body: params[:message_body],
-      attachment: params[:attachment],
-      sent_date: params[:sent_date],
-      urgent: params[:urgent],
-      draft: params[:draft],
-      confirmation: params[:confirmation])
-      if @update_mail.subject.nil? or @update_mail.subject==""
-        @update_mail.update_attributes(subject:"(sin asunto)")
-      end
-      if @update_mail.sent_date.nil?
-        @update_mail.update_attributes(sent_date: DateTime.now)
-      end
+      draft: false)
       render json: @update_mail
     else
       render json: @update_mail.errors, status: :unprocessable_entity

@@ -8,8 +8,8 @@ Rails.application.routes.draw do
 
   post 'sent', to: 'sent_mails#create'
 
-  put 'senddraft/:id',to:'sent_mails#sent_draft'
-  put 'draft/:id', to: 'sent_mails#modify_draft'
+  put 'sentdraft/:id',to:'sent_mails#modify_draft'
+  put 'draft/:id', to: 'sent_mails#sent_draft'
 
   delete 'draft/:id', to: 'sent_mails#delDraft'
   delete 'sent/:id', to: 'sent_mails#destroy'
