@@ -27,11 +27,13 @@ class NotificationsController < ApplicationController
         "to" => i.device_id,
         "notification" => {
           "body" => "Nuevo mensaje de "+sender,
-          "title" => "Tienes un nuevo mensaje!"
+          "title" => "Tienes un nuevo mensaje!",
+          "icon" => "https://lh5.googleusercontent.com/8YRIsP7FC7ds-bF4mBQKdd8Y74R3hQkx57Z2A0im8WnP_b3W81HpyLC7yspIlDrE1VyltTTE3oEhgOk=w1366-h631"
         },
         "data" => {
           "body" => "Nuevo mensaje de "+sender,
-          "title" => "Tienes un nuevo mensaje!"
+          "title" => "Tienes un nuevo mensaje!",
+          "icon" => "https://lh5.googleusercontent.com/8YRIsP7FC7ds-bF4mBQKdd8Y74R3hQkx57Z2A0im8WnP_b3W81HpyLC7yspIlDrE1VyltTTE3oEhgOk=w1366-h631"
         }
       }.to_json,
       :headers => {
@@ -39,6 +41,8 @@ class NotificationsController < ApplicationController
         # Key de autorizacion para la app de android - Esto esta en mi cuenta de google <<jsbustosb@unal.edu.co>>
         'Authorization' => 'Key=AIzaSyCg0mjFzRqBnGDVv1k84_RHKYrxpIqHJVU'
       } )
+    puts notification.body
+    puts notification.code
     end
   end
 
